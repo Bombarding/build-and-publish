@@ -11,6 +11,9 @@
       build-container:
         uses: ./.github/workflows/build-docker-container.yml
         secrets: inherit
+        permissions:
+          contents: read
+          packages: write
 
       boot-container:
         needs:
