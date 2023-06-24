@@ -18,7 +18,7 @@
       boot-container:
         needs:
             - build-container
-        name: Spin the Conatiner up
+        name: Spin the Container up
         runs-on: rhel-latest
         steps:
           - name: Docker Compose Up
