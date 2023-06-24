@@ -21,6 +21,6 @@ EXPOSE 2000
 USER 1001
 CMD php-fpm & httpd -D FOREGROUND
 
-RUN useradd -ms /bin/bash bombarding
-USER newuser
-WORKDIR /home/bombarding
+# RUN useradd -ms /bin/bash bombarding
+# USER bombarding
+# WORKDIR /home/bombarding
