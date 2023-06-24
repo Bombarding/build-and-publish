@@ -1,26 +1,17 @@
-FROM registry.access.redhat.com/rhel8/rhel AS builder
+FROM registry.access.redhat.com/ubi8/ubi:8.1
 
-# ENV PYTHONDONTWRITEBYTECODE 1
-# ENV PYTHONUNBUFFERED 1
+RUN yum --disableplugin=subscription-manager -y module enable php:7.3 \
+  && yum --disableplugin=subscription-manager -y install httpd php \
+  && yum --disableplugin=subscription-manager clean all
 
-# RUN apt-get -y update
-# RUN apt-get -y install git
+ADD index.php /var/www/html
 
-# RUN \
-#     yum update -yq && \
-#     apt install curl -y &&
+RUN sed -i 's/Listen 80/Listen 2000/' /etc/httpd/conf/httpd.conf \
+  && sed -i 's/listen.acl_users = apache,nginx/listen.acl_users =/' /etc/php-fpm.d/www.conf \
+  && mkdir /run/php-fpm \
+  && chgrp -R 0 /var/log/httpd /var/run/httpd /run/php-fpm \
+  && chmod -R g=u /var/log/httpd /var/run/httpd /run/php-fpm
 
-# RUN \
-#     apt-get install -yqq zip && \
-#     curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" && \
-#     unzip awscli-bundle.zip && \
-#     ./awscli-bundle/install -b /usr/local/bin/aws
-
-# RUN \
-#     npm install && \
-#     npm audit fix
-
-# RUN chown -R 1001:123 "/root/.npm"
-
-
-FROM builder AS release
+EXPOSE 2000
+USER 1001
+CMD php-fpm & httpd -D FOREGROUND
