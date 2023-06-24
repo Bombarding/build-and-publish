@@ -1,9 +1,6 @@
 version: "3.7"
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: ghcr.io/bombarding/build-and-publish/web-container:latest
     volumes:
       - rhel:/var/lib/rhel/
