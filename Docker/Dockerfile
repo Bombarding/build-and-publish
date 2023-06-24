@@ -6,8 +6,6 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get -y update
 RUN apt-get -y install git
 
-WORKDIR ..
-
 RUN \
     apt-get update -yq && \
     apt install curl -y &&
