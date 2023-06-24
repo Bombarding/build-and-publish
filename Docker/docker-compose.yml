@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: ghcr.io/bombarding/build-and-publish/web-container:latest
     volumes:
       - rhel:/var/lib/rhel/
     ports:
