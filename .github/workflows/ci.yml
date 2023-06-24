@@ -22,6 +22,7 @@
         runs-on: ubuntu-latest
         steps:
           - name: Docker Compose Up
+            working-directory: ../../Docker
             run: docker compose up -d
 
       # linting:
@@ -33,6 +34,7 @@
         runs-on: ubuntu-latest
         steps:
           - name: Docker Compose Down
+            working-directory: ../../Docker
             run: |
               docker compose down
               docker rm -f $(shell docker ps -a -q)
