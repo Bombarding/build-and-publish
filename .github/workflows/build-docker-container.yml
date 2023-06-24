@@ -7,7 +7,7 @@ on:
 env:
     DOCKER_NAME: local-container
     IMAGE: web-container
-    GH_REPO: Bombarding/build-and-publish
+    GH_REPO: bombarding/build-and-publish
 
 jobs:
     build-with-docker:
