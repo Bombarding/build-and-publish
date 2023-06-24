@@ -1,11 +1,11 @@
 ---
-name: Auto Generated PR From Main to Staging
+name: Create Pull Request From Main to Release
 on:
-    workflow_call:
-    workflow_dispatch:
+  workflow_call:
+  workflow_dispatch:
 
 env:
-    GH_TOKEN: ${{ secrets.SECRET_TOKEN }}
+  GH_TOKEN: ${{ secrets.SECRET_TOKEN }}
 
 jobs:
     check-commit:
