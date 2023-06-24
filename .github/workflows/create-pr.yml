@@ -56,7 +56,7 @@ jobs:
           run: echo "pull_request_number=$(gh pr view --json number -q .number || echo "")" >> $GITHUB_OUTPUT
 
     auto-approve:
-      name: Auto Aprove the created Pull Request
+      name: Auto Aprove The Created Pull Request
       needs: [pull-request]
       if: ${{ needs.pull-request.outputs.pr_number != null }}
       runs-on: ubuntu-latest
@@ -69,16 +69,18 @@ jobs:
             github-token: ${{ secrets.GITHUB_TOKEN }}
 
     auto-merge:
-      name: Auto Merge the created Pull Request
+      name: Auto Merge The Created Pull Request
       needs: [auto-approve, pull-request]
       if: ${{ needs.pull-request.outputs.pr_number != null }}
       runs-on: ubuntu-latest
+      permissions:
+        pull-requests: write
       steps:
         - id: automerge
           name: automerge
           uses: pascalgn/automerge-action@v0.15.6
           env:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             #merge_retries: 50
             #merge_retry_sleep: 30000
             merge_method: squash
