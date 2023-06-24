@@ -19,7 +19,7 @@
         needs:
             - build-container
         name: Spin the Container up
-        runs-on: rhel-latest
+        runs-on: ubuntu-latest
         steps:
           - name: Docker Compose Up
             working-directory: ./Docker
@@ -31,7 +31,7 @@
         needs:
             - boot-container
         name: Shut down the Container
-        runs-on: rhel-latest
+        runs-on: ubuntu-latest
         steps:
           - name: Docker Compose Down
             working-directory: ./Docker
