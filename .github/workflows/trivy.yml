@@ -13,9 +13,6 @@ on:
         required: true
         type: string
         default: ./Docker
-  push:
-    branches:
-      - release
 
 permissions:
   contents: read
