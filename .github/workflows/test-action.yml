@@ -4,14 +4,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  action:
+  checkout:
+    name: Checkout Code
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+  build-and-publish:
     name: Testing Action
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v3
       - name: Build and Publish Container
         uses: Bombarding/build-and-publish@v1.0
         with:
