@@ -1,7 +1,6 @@
 ---
 name: Compose Container
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       work-dir:

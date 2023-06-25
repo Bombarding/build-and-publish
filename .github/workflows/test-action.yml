@@ -1,0 +1,28 @@
+---
+name: Test Marketplace Action
+on:
+  workflow_dispatch:
+
+jobs:
+  checkout:
+    name: Checkout Code
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+  build-and-publish:
+    needs: [checkout]
+    name: Testing Action
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Build and Publish Container
+        uses: Bombarding/build-and-publish@v1.2
+        with:
+          docker-name: local-container
+          image-name: web-container
+          github-repo: bombarding/build-and-publish
+          work-dir: './Docker'

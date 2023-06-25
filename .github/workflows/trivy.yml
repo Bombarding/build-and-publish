@@ -41,7 +41,7 @@ jobs:
 
       - name: Build Container
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: docker build . -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}
+        run: docker build -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }} .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.11.2
