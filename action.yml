@@ -1,5 +1,5 @@
 ---
-name: Build and Publish
+name: Build and Publish Container
 author: Bombarding
 description: Build, Publish, Compose, Scan Container and Release
 branding:
