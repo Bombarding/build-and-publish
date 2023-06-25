@@ -20,4 +20,3 @@ jobs:
           docker-name: local-container
           image-name: web-container
           github-repo: bombarding/build-and-publish
-          work-dir: /Docker/
