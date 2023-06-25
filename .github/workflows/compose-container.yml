@@ -3,6 +3,10 @@ name: Compose Container
 on:
     workflow_dispatch:
     workflow_call:
+
+env:
+  work-dir: ./Docker
+
 jobs:
     boot-container:
       name: Spin the Container up
@@ -19,7 +23,7 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Docker Compose Up
-          working-directory: ./Docker
+          working-directory: ${{ env.work-dir }}
           run: docker compose up -d
 
     # linting:
@@ -40,6 +44,6 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Docker Compose Down
-          working-directory: ./Docker
+          working-directory: ${{ env.work-dir }}
           run: |
             docker compose down
