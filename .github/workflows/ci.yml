@@ -1,0 +1,20 @@
+---
+    name: Continuous Integration
+    on:
+      workflow_dispatch:
+      workflow_call:
+      pull_request:
+        branches:
+          - release
+
+    jobs:
+      build-container:
+        uses: ./.github/workflows/build-docker-container.yml
+        secrets: inherit
+        permissions:
+          contents: read
+          packages: write
+
+      compose-container:
+        uses: ./.github/workflows/compose-container.yml
+        secrets: inherit

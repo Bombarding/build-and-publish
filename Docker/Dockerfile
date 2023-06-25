@@ -1,5 +1,10 @@
 FROM registry.access.redhat.com/ubi8/ubi:8.1
 
+USER root
+RUN echo 'root:root' | chpasswd
+
+RUN yum update -y
+
 RUN yum --disableplugin=subscription-manager -y module enable php:7.3 \
   && yum --disableplugin=subscription-manager -y install httpd php \
   && yum --disableplugin=subscription-manager clean all
@@ -15,3 +20,7 @@ RUN sed -i 's/Listen 80/Listen 2000/' /etc/httpd/conf/httpd.conf \
 EXPOSE 2000
 USER 1001
 CMD php-fpm & httpd -D FOREGROUND
+
+# RUN useradd -ms /bin/bash bombarding
+# USER bombarding
+# WORKDIR /home/bombarding
