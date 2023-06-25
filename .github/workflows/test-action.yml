@@ -16,3 +16,8 @@ jobs:
     steps:
       - name: Build and Publish Container
         uses: Bombarding/build-and-publish@v1.0
+        with:
+          docker-name: local-container
+          image-name: web-container
+          github-repo: bombarding/build-and-publish
+          work-dir: ./Docker
