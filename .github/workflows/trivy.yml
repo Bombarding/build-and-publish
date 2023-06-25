@@ -7,7 +7,7 @@ on:
       work-dir:
         required: true
         type: string
-        default: './Docker'
+        default: ./Docker
 
 permissions:
   contents: read

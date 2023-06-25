@@ -24,7 +24,7 @@
         uses: ./.github/workflows/compose-container.yml
         secrets: inherit
         with:
-          work-dir: './Docker'
+          work-dir: ./Docker
 
       trivy-scan:
         needs:
@@ -37,7 +37,7 @@
           actions: read
           security-events: write
         with:
-          work-dir: './Docker'
+          work-dir: ./Docker
 
       trivy-scan:
         needs:
@@ -49,6 +49,8 @@
           packages: write
           actions: read
           security-events: write
+        with:
+          work-dir: ./Docker
 
       create-pr:
         needs:
