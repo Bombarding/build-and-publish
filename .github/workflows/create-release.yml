@@ -20,6 +20,12 @@ jobs:
           echo "date=$(date +%Y%m%d:%H%M)" >> $GITHUB_OUTPUT
           echo "tag=$(date +%Y%m%d%H%M)" >> $GITHUB_OUTPUT
 
+      - name: Changelog
+        uses: Bullrich/generate-release-changelog@master
+        id: changelog
+        env:
+          REPO: ${{ github.repository }}
+
       - name: Create Release
         uses: actions/create-release@v1
         env:
@@ -27,6 +33,7 @@ jobs:
         with:
           tag_name: v.1${{ steps.date.outputs.tag }}
           release_name: Release ${{ steps.date.outputs.date }}
-          body: ${{ steps.date.outputs.date }}
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false

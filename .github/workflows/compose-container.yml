@@ -1,55 +1,54 @@
 ---
 name: Compose Container
 on:
-    workflow_dispatch:
-    workflow_call:
-      inputs:
-        work-dir:
-          required: true
-          type: string
-          default: ./Docker
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      work-dir:
+        required: true
+        type: string
+        default: ./Docker
 
 env:
   WORKING_DIRECTORY: ${{ inputs.work-dir }}
 
-
 jobs:
-    boot-container:
-      name: Spin the Container up
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+  boot-container:
+    name: Spin the Container up
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-        - name: Login to GitHub Container Registry
-          uses: docker/login-action@v2
-          with:
-            registry: ghcr.io
-            username: ${{ github.repository_owner }}
-            password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Docker Compose Up
-          working-directory: ${{ env.WORKING_DIRECTORY }}
+      - name: Docker Compose Up
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
-          run: docker compose up -d
+        run: docker compose up -d
 
-    container-down:
-      name: Shut down the Container
-      needs: [boot-container]
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+  container-down:
+    name: Shut down the Container
+    needs: [boot-container]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-        - name: Login to GitHub Container Registry
-          uses: docker/login-action@v2
-          with:
-            registry: ghcr.io
-            username: ${{ github.repository_owner }}
-            password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Docker Compose Down
-          working-directory: ${{ env.WORKING_DIRECTORY }}
+      - name: Docker Compose Down
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
-          run: |
-            docker compose down
+        run: |
+          docker compose down
