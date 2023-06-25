@@ -12,7 +12,7 @@ env:
   DOCKER_NAME: local-container
 
 jobs:
-  build:
+  trivy:
     permissions:
       contents: read
       security-events: write
