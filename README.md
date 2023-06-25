@@ -1,4 +1,4 @@
-# build-and-publish
+# Build and Publish
 
 ```mermaid
 ---
@@ -11,10 +11,10 @@ graph TD;
     D-->E[No Action];
     D-->F[Create Pull Request to release];
     F-->G[Approve Pull Request];
-    F-->I[Build Container];
+    L-->I[Build Container];
     G-->H[Merge Pull Request];
     H-->M[Generate Release];
     I-->J[Docker Compose Up];
     J-->K[Docker Compose Down];
-    K-->L[Trivy Scan];
+    C-->L[Trivy Scan];
 ```

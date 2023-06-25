@@ -7,7 +7,20 @@
         - cron: '0 4 * * 1-5'
 
     jobs:
+      trivy-scan:
+        uses: ./.github/workflows/trivy.yml
+        secrets: inherit
+        permissions:
+          contents: read
+          packages: write
+          actions: read
+          security-events: write
+        with:
+          work-dir: ./Docker
+
       build-container:
+        needs:
+          - trivy-scan
         uses: ./.github/workflows/build-docker-container.yml
         secrets: inherit
         permissions:
@@ -20,28 +33,16 @@
 
       compose-container:
         needs:
-          - build-container
+          - trivy-scan
         uses: ./.github/workflows/compose-container.yml
         secrets: inherit
         with:
           work-dir: ./Docker
 
-      trivy-scan:
-        needs:
-          - compose-container
-        uses: ./.github/workflows/trivy.yml
-        secrets: inherit
-        permissions:
-          contents: read
-          packages: write
-          actions: read
-          security-events: write
-        with:
-          work-dir: ./Docker
-
       create-pr:
         needs:
-          - trivy-scan
+          - build-container
+          - compose-container
         uses: ./.github/workflows/create-pr.yml
         secrets: inherit
         permissions:
