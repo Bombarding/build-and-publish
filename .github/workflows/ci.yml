@@ -30,3 +30,5 @@
       create-pr:
         uses: ./.github/workflows/create-pr.yml
         secrets: inherit
+        permissions:
+          pull-requests: write
