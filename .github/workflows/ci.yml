@@ -17,3 +17,7 @@
       compose-container:
         uses: ./.github/workflows/compose-container.yml
         secrets: inherit
+
+      create-pr:
+        uses: ./.github/workflows/create-pr.yml
+        secrets: inherit

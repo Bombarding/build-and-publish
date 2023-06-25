@@ -3,8 +3,6 @@ name: Create Pull Request From Main to Release
 on:
   workflow_call:
   workflow_dispatch:
-  schedule:
-    - cron: '0 4 * * 1-5'
 
 env:
   GH_TOKEN: ${{ secrets.SECRET_TOKEN }}
