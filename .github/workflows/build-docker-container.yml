@@ -45,7 +45,7 @@ jobs:
 
       - name: Build Container
         working-directory: ./Docker
-        run: docker build . -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}
+        run: docker build -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }} .
 
       - name: Tag Image
         run: docker tag ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }} ghcr.io/${{ env.GH_REPO }}/${{ env.IMAGE }}:latest

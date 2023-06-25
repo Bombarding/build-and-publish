@@ -8,7 +8,7 @@ env:
 
 jobs:
   action:
-    name: Build and Publish Container
+    name: Testing
     runs-on: ubuntu-latest
     permissions:
       contents: read
