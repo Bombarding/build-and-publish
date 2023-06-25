@@ -1,7 +1,6 @@
 ---
 name: Build and Publish Docker Container
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       docker-name:
