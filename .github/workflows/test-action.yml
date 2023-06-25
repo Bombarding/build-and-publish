@@ -1,5 +1,5 @@
 ---
-name: Create Pull Request From Main to Release
+name: Test Marketplace Action
 on:
   workflow_dispatch:
 
