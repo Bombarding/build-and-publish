@@ -15,6 +15,6 @@
           contents: read
           packages: write
 
-      # compose-container:
-      #   uses: ./.github/workflows/compose-container.yml
-      #   secrets: inherit
+      compose-container:
+        uses: ./.github/workflows/compose-container.yml
+        secrets: inherit
