@@ -15,9 +15,26 @@
           packages: write
 
       compose-container:
+        needs:
+          - build-container
         uses: ./.github/workflows/compose-container.yml
         secrets: inherit
 
+      trivy-scan:
+        needs:
+          - compose-container
+        uses: ./.github/workflows/trivy.yml
+        secrets: inherit
+        permissions:
+          contents: read
+          packages: write
+          actions: read
+          security-events: write
+
       create-pr:
+        needs:
+          - trivy-scan
         uses: ./.github/workflows/create-pr.yml
         secrets: inherit
+        permissions:
+          pull-requests: write

@@ -12,7 +12,9 @@ graph TD;
     D-->F[Create Pull Request to release];
     F-->G[Approve Pull Request];
     F-->I[Build Container];
+    G-->H[Merge Pull Request];
+    H-->M[Generate Release];
     I-->J[Docker Compose Up];
     J-->K[Docker Compose Down];
-    G-->H[Merge Pull Request];
+    K-->L[Trivy Scan];
 ```
