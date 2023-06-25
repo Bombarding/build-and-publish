@@ -1,4 +1,4 @@
-# build-and-publish
+# Build and Publish
 
 ```mermaid
 ---
