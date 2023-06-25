@@ -9,7 +9,6 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Docker Compose Up
-          working-directory: Docker
           run: docker compose -f docker-compose.yml up -d
 
     # linting:
@@ -19,7 +18,6 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Docker Compose Down
-          working-directory: Docker
           run: |
             docker compose -f docker-compose.yml down
             docker rm -f $(shell docker ps -a -q)
