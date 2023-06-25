@@ -1,0 +1,26 @@
+---
+name: Compose Container
+on:
+    workflow_dispatch:
+    workflow_call:
+jobs:
+    boot-container:
+      name: Spin the Container up
+      runs-on: ubuntu-latest
+      steps:
+        - name: Docker Compose Up
+          working-directory: Docker
+          run: docker compose -f docker-compose.yml up -d
+
+    # linting:
+
+    container-down:
+      name: Shut down the Container
+      runs-on: ubuntu-latest
+      steps:
+        - name: Docker Compose Down
+          working-directory: Docker
+          run: |
+            docker compose -f docker-compose.yml down
+            docker rm -f $(shell docker ps -a -q)
+            docker volume rm $(shell docker volume ls -q)
