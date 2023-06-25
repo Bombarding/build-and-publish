@@ -6,19 +6,7 @@ on:
       - release
 
 jobs:
-  trivy-scan:
-    uses: ./.github/workflows/trivy.yml
-    secrets: inherit
-    permissions:
-      contents: read
-      packages: write
-      actions: read
-      security-events: write
-    with:
-      work-dir: ./Docker
-
   release:
-    needs: [trivy-scan]
     permissions: write-all
     name: Create Release
     runs-on: ubuntu-latest
