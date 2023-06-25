@@ -2,6 +2,9 @@
 name: Build and Publish
 author: Bombarding
 description: Build, Publish, Compose, Scan Container and Release
+branding:
+  icon: 'activity'
+  color: 'green'
 runs:
   using: 'docker'
   image: 'Dockerfile'
