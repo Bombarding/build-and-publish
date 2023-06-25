@@ -1,0 +1,47 @@
+---
+name: Trivy Scan
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "release" ]
+
+permissions:
+  contents: read
+
+env:
+  DOCKER_NAME: local-container
+
+jobs:
+  trivy:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get Date
+        shell: bash
+        id: date
+        run: |
+          echo "date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+
+      - name: Build Container
+        working-directory: ./Docker
+        run: docker build . -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        with:
+          image-ref: '${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
