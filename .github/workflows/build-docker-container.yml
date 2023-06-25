@@ -7,20 +7,20 @@ on:
         docker-name:
           required: true
           type: string
-          default: 'local-container'
+          default: local-container
         image-name:
           required: true
           type: string
-          default: 'web-container'
+          default: web-container
         repo-name:
           required: true
           type: string
-          default: 'bombarding/build-and-publish'
+          default: bombarding/build-and-publish
 
 env:
     DOCKER_NAME: ${{ inputs.docker-name }}
     IMAGE: ${{ inputs.image-name }}
-    GH_REPO: ${{ inputs.image-name }}
+    GH_REPO: ${{ inputs.repo-name }}
 
 jobs:
     build-with-docker:

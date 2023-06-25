@@ -14,9 +14,9 @@
           contents: read
           packages: write
         with:
-          docker-name: 'local-container'
-          image-name: 'web-container'
-          repo-name: 'bombarding/build-and-publish'
+          docker-name: local-container
+          image-name: web-container
+          repo-name: bombarding/build-and-publish
 
       compose-container:
         needs:
