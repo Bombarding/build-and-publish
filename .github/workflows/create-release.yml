@@ -18,6 +18,7 @@ jobs:
       work-dir: ./Docker
 
   release:
+    needs: [trivy-scan]
     permissions: write-all
     name: Create Release
     runs-on: ubuntu-latest
