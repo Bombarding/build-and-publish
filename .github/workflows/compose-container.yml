@@ -47,6 +47,6 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Docker Compose Down
-          working-directory: ${{ env.work-dir }}
+          working-directory: ${{ env.WORKING_DIRECTORY }}
           run: |
             docker compose down
