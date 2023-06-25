@@ -26,7 +26,7 @@ jobs:
         shell: bash
         id: date
         run: |
-          echo "date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+          echo "date=$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
 
       - name: Build Container
         working-directory: ./Docker
