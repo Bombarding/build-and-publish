@@ -1,4 +1,6 @@
-# Build and Publish
+# Build and Publish Container
+
+Note: This does not use an entrypoint.sh yet. Please view https://github.com/Bombarding/build-and-publish/blob/release/.github/workflows/ci.yml
 
 ```mermaid
 ---
