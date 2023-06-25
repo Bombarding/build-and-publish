@@ -1,0 +1,23 @@
+name: Build and Publish
+author: Bombarding
+description: Build, Publish, Compose, Scan Container and Release
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+inputs:
+  docker-name:
+    description: 'Local container name'
+    required: true
+    default: 'local-container'
+  image-name:
+    description: 'Name of the docker container'
+    required: true
+    default: 'web-container'
+  github-repo:
+    description: 'user/repo'
+    required: true
+    default: 'bombarding/build-and-publish'
+  work-dir:
+    description: 'Working directory of dockerfile'
+    required: true
+    default: './Docker'
