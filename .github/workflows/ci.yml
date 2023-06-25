@@ -24,6 +24,8 @@
         permissions:
           contents: read
           packages: write
+          actions: read
+          security-events: write
 
       create-pr:
         uses: ./.github/workflows/create-pr.yml
