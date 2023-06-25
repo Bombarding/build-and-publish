@@ -9,7 +9,6 @@ on:
           type: string
           default: './Docker'
 
-
 env:
   WORKING_DIRECTORY: ${{ inputs.work-dir }}
 
@@ -31,8 +30,6 @@ jobs:
         - name: Docker Compose Up
           working-directory: ${{ env.WORKING_DIRECTORY }}
           run: docker compose up -d
-
-    # linting:
 
     container-down:
       name: Shut down the Container
