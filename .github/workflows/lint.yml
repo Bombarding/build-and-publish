@@ -13,7 +13,28 @@ env:
   GIT_BRANCH: main
 
 jobs:
+  format-yml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Reformat YAML Files
+        uses: credfeto/action-yaml-format@v1.3.2
+
+      - name: Commit files
+        run: |
+          git config --local user.email "<githubusername>@users.noreply.github.com"
+          git config --local user.name "YAML Reformat Bot"
+          git commit --all -m"Reformat YAML Files to common format." || true
+
+      - name: Push
+        run: git push "https://${{secrets.SECRET_TOKEN}}:${{secrets.SECRET_TOKEN}}@github.com/${{github.repository}}.git" "HEAD:${{ env.GIT_BRANCH }}"
+
   yamllint:
+    needs: [format-yml]
     permissions:
       contents: read
       pull-requests: write
@@ -21,9 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: yaml-lint
-        uses: ibiqlik/action-yamllint@v3
-
       - name: Yamllint
         uses: karancode/yamllint-github-action@v2.1.1
         with:
