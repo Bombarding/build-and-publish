@@ -8,6 +8,9 @@ on:
 permissions:
   contents: read
 
+env:
+  DOCKER_NAME: local-container
+
 jobs:
   build:
     permissions:
@@ -20,14 +23,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build an image from Dockerfile
+      - name: Get Date
+        shell: bash
+        id: date
         run: |
-          docker build -t ghcr.io/bombarding/build-and-publish/web-container:latest .
+          echo "date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+
+      - name: Build Container
+        working-directory: ./Docker
+        run: docker build . -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image-ref: 'ghcr.io/bombarding/build-and-publish/web-container:latest'
+          image-ref: '${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
