@@ -7,7 +7,7 @@ on:
         work-dir:
           required: true
           type: string
-          default: './Docker'
+          default: ./Docker
 
 env:
   WORKING_DIRECTORY: ${{ inputs.work-dir }}

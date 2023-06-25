@@ -16,7 +16,7 @@ jobs:
 
       - name: Get Current Date
         id: date
-        run: echo "date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: actions/create-release@v1
