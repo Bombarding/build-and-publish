@@ -3,11 +3,24 @@ name: Build and Publish Docker Container
 on:
     workflow_dispatch:
     workflow_call:
+      inputs:
+        docker-name:
+          required: true
+          type: string
+          default: local-container
+        image-name:
+          required: true
+          type: string
+          default: web-container
+        repo-name:
+          required: true
+          type: string
+          default: bombarding/build-and-publish
 
 env:
-    DOCKER_NAME: local-container
-    IMAGE: web-container
-    GH_REPO: bombarding/build-and-publish
+    DOCKER_NAME: ${{ inputs.docker-name }}
+    IMAGE: ${{ inputs.image-name }}
+    GH_REPO: ${{ inputs.repo-name }}
 
 jobs:
     build-with-docker:

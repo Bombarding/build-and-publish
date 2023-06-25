@@ -3,9 +3,15 @@ name: Compose Container
 on:
     workflow_dispatch:
     workflow_call:
+      inputs:
+        work-dir:
+          required: true
+          type: string
+          default: './Docker'
 
 env:
-  work-dir: ./Docker
+  WORKING_DIRECTORY: ${{ inputs.work-dir }}
+
 
 jobs:
     boot-container:
@@ -23,10 +29,9 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Docker Compose Up
-          working-directory: ${{ env.work-dir }}
-          run: docker compose up -d
+          working-directory: ${{ env.WORKING_DIRECTORY }}
 
-    # linting:
+          run: docker compose up -d
 
     container-down:
       name: Shut down the Container
@@ -44,6 +49,7 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Docker Compose Down
-          working-directory: ${{ env.work-dir }}
+          working-directory: ${{ env.WORKING_DIRECTORY }}
+
           run: |
             docker compose down

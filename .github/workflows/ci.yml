@@ -13,12 +13,31 @@
         permissions:
           contents: read
           packages: write
+        with:
+          docker-name: local-container
+          image-name: web-container
+          repo-name: bombarding/build-and-publish
 
       compose-container:
         needs:
           - build-container
         uses: ./.github/workflows/compose-container.yml
         secrets: inherit
+        with:
+          work-dir: './Docker'
+
+      trivy-scan:
+        needs:
+          - compose-container
+        uses: ./.github/workflows/trivy.yml
+        secrets: inherit
+        permissions:
+          contents: read
+          packages: write
+          actions: read
+          security-events: write
+        with:
+          work-dir: './Docker'
 
       trivy-scan:
         needs:

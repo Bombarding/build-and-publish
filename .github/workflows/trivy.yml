@@ -3,12 +3,18 @@ name: Trivy Scan
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      work-dir:
+        required: true
+        type: string
+        default: './Docker'
 
 permissions:
   contents: read
 
 env:
   DOCKER_NAME: local-container
+  WORKING_DIRECTORY: ${{ inputs.work-dir }}
 
 jobs:
   trivy:
@@ -19,17 +25,17 @@ jobs:
     name: Trivy Scan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Get Date
         shell: bash
         id: date
         run: |
-          echo "date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+          echo "date=$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
 
       - name: Build Container
-        working-directory: ./Docker
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: docker build . -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}
 
       - name: Run Trivy vulnerability scanner
