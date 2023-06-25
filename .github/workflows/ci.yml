@@ -1,49 +1,49 @@
 ---
-    name: Continuous Integration
-    on:
-      workflow_dispatch:
-      workflow_call:
-      schedule:
-        - cron: '0 4 * * 1-5'
+name: Continuous Integration
+on:
+  workflow_dispatch:
+  workflow_call:
+  schedule:
+    - cron: '0 4 * * 1-5'
 
-    jobs:
-      trivy-scan:
-        uses: ./.github/workflows/trivy.yml
-        secrets: inherit
-        permissions:
-          contents: read
-          packages: write
-          actions: read
-          security-events: write
-        with:
-          work-dir: ./Docker
+jobs:
+  trivy-scan:
+    uses: ./.github/workflows/trivy.yml
+    secrets: inherit
+    permissions:
+      contents: read
+      packages: write
+      actions: read
+      security-events: write
+    with:
+      work-dir: ./Docker
 
-      build-container:
-        needs:
-          - trivy-scan
-        uses: ./.github/workflows/build-docker-container.yml
-        secrets: inherit
-        permissions:
-          contents: read
-          packages: write
-        with:
-          docker-name: local-container
-          image-name: web-container
-          repo-name: bombarding/build-and-publish
+  build-container:
+    needs:
+      - trivy-scan
+    uses: ./.github/workflows/build-docker-container.yml
+    secrets: inherit
+    permissions:
+      contents: read
+      packages: write
+    with:
+      docker-name: local-container
+      image-name: web-container
+      repo-name: bombarding/build-and-publish
 
-      compose-container:
-        needs:
-          - trivy-scan
-        uses: ./.github/workflows/compose-container.yml
-        secrets: inherit
-        with:
-          work-dir: ./Docker
+  compose-container:
+    needs:
+      - trivy-scan
+    uses: ./.github/workflows/compose-container.yml
+    secrets: inherit
+    with:
+      work-dir: ./Docker
 
-      create-pr:
-        needs:
-          - build-container
-          - compose-container
-        uses: ./.github/workflows/create-pr.yml
-        secrets: inherit
-        permissions:
-          pull-requests: write
+  create-pr:
+    needs:
+      - build-container
+      - compose-container
+    uses: ./.github/workflows/create-pr.yml
+    secrets: inherit
+    permissions:
+      pull-requests: write
