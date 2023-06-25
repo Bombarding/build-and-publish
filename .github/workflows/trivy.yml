@@ -2,8 +2,7 @@
 name: Trivy Scan
 on:
   workflow_dispatch:
-  push:
-    branches: [ "release" ]
+  workflow_call:
 
 permissions:
   contents: read

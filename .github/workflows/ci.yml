@@ -18,6 +18,13 @@
         uses: ./.github/workflows/compose-container.yml
         secrets: inherit
 
+      trivy-scan:
+        uses: ./.github/workflows/trivy.yml
+        secrets: inherit
+        permissions:
+          contents: read
+          packages: write
+
       create-pr:
         uses: ./.github/workflows/create-pr.yml
         secrets: inherit
