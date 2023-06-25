@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  GIT_BRANCH: release
+  GIT_BRANCH: main
 
 jobs:
   format-yml:
@@ -31,7 +31,7 @@ jobs:
           git commit --all -m"Reformat YAML Files to common format." || true
 
       - name: Push
-        run: git push "https://${{github.actor}}:${{secrets.SECRET_TOKEN}}@github.com/${{github.repository}}.git" "HEAD:${{ env.GIT_BRANCH }}"
+        run: git push "https://${{secrets.SECRET_TOKEN}}:${{secrets.SECRET_TOKEN}}@github.com/${{github.repository}}.git" "HEAD:${{ env.GIT_BRANCH }}"
 
   yamllint:
     needs: [format-yml]
