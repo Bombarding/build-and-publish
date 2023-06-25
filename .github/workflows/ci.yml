@@ -41,6 +41,7 @@
 
       create-pr:
         needs:
+          - build-container
           - compose-container
         uses: ./.github/workflows/create-pr.yml
         secrets: inherit
