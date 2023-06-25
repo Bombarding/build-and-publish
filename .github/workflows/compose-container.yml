@@ -10,6 +10,14 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v3
+
+        - name: Login to GitHub Container Registry
+          uses: docker/login-action@v2
+          with:
+            registry: ghcr.io
+            username: ${{ github.repository_owner }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+
         - name: Docker Compose Up
           working-directory: ./Docker
           run: docker compose up -d
@@ -23,6 +31,14 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v3
+
+        - name: Login to GitHub Container Registry
+          uses: docker/login-action@v2
+          with:
+            registry: ghcr.io
+            username: ${{ github.repository_owner }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+
         - name: Docker Compose Down
           working-directory: ./Docker
           run: |
