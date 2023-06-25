@@ -8,8 +8,11 @@ jobs:
       name: Spin the Container up
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout
+          uses: actions/checkout@v3
         - name: Docker Compose Up
-          run: docker compose -f docker-compose.yml up -d
+          working-directory: ./Docker
+          run: docker compose up
 
     # linting:
 
@@ -18,8 +21,9 @@ jobs:
       needs: [boot-container]
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout
+          uses: actions/checkout@v3
         - name: Docker Compose Down
+          working-directory: ./Docker
           run: |
-            docker compose -f docker-compose.yml down
-            docker rm -f $(shell docker ps -a -q)
-            docker volume rm $(shell docker volume ls -q)
+            docker compose down
