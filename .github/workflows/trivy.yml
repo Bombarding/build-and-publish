@@ -2,6 +2,11 @@
 name: Trivy Scan
 on:
   workflow_dispatch:
+    inputs:
+      work-dir:
+        required: true
+        type: string
+        default: ./Docker
   workflow_call:
     inputs:
       work-dir:
