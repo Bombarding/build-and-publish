@@ -39,6 +39,17 @@
         with:
           work-dir: './Docker'
 
+      trivy-scan:
+        needs:
+          - compose-container
+        uses: ./.github/workflows/trivy.yml
+        secrets: inherit
+        permissions:
+          contents: read
+          packages: write
+          actions: read
+          security-events: write
+
       create-pr:
         needs:
           - trivy-scan

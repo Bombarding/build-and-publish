@@ -12,6 +12,7 @@ on:
 env:
   WORKING_DIRECTORY: ${{ inputs.work-dir }}
 
+
 jobs:
     boot-container:
       name: Spin the Container up
@@ -29,6 +30,7 @@ jobs:
 
         - name: Docker Compose Up
           working-directory: ${{ env.WORKING_DIRECTORY }}
+
           run: docker compose up -d
 
     container-down:
@@ -48,5 +50,6 @@ jobs:
 
         - name: Docker Compose Down
           working-directory: ${{ env.WORKING_DIRECTORY }}
+
           run: |
             docker compose down
