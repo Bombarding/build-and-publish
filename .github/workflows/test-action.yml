@@ -14,9 +14,13 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Build and Publish Container
         uses: Bombarding/build-and-publish@release
         with:
           docker-name: local-container
           image-name: web-container
           github-repo: bombarding/build-and-publish
+          work-dir: ./Docker
