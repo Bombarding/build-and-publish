@@ -16,5 +16,5 @@
           packages: write
 
       compose-container:
-        uses: ./.github/workflows/build-docker-container.yml
+        uses: ./.github/workflows/compose-container.yml
         secrets: inherit
