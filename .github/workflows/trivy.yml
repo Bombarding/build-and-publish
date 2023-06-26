@@ -51,6 +51,7 @@ jobs:
         with:
           image-ref: '${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}'
           scan-type: 'image'
+          hide-progress: false
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
