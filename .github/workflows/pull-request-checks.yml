@@ -10,15 +10,28 @@ jobs:
     uses: ./.github/workflows/trivy.yml
     secrets: inherit
     permissions:
-        contents: read
-        packages: write
-        actions: read
-        security-events: write
+      contents: read
+      packages: write
+      actions: read
+      security-events: write
     with:
-        work-dir: ./Docker
+      work-dir: ./Docker
 
   compose-container:
     uses: ./.github/workflows/compose-container.yml
     secrets: inherit
     with:
-        work-dir: ./Docker
+      work-dir: ./Docker
+
+  checks-complete:
+    name: Set Repository Event
+    runs-on: ubuntu-latest
+    needs: [trivy-scan, compose-container]
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.SECRET_TOKEN }}
+          event-type: checks-complete
+          client-payload: '{"github": ${{ toJson(github) }}}'
+        if: github.event_name == 'pull_request'

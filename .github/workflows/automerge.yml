@@ -1,9 +1,8 @@
 ---
 name: Auto Merge Pull Request With Approved Label
 on:
-  check_suite:
-    types: [completed]
-
+  repository_dispatch:
+    types: [ checks-complete ]
 jobs:
   auto-merge:
     name: Auto Merge The Created Pull Request
