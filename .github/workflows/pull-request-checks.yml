@@ -1,0 +1,24 @@
+---
+name: Pull Request Checks
+on:
+  pull_request:
+    branches:
+      - main
+      - release
+jobs:
+  trivy-scan:
+    uses: ./.github/workflows/trivy.yml
+    secrets: inherit
+    permissions:
+        contents: read
+        packages: write
+        actions: read
+        security-events: write
+    with:
+        work-dir: ./Docker
+
+  compose-container:
+    uses: ./.github/workflows/compose-container.yml
+    secrets: inherit
+    with:
+        work-dir: ./Docker
