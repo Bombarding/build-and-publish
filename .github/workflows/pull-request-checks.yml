@@ -31,7 +31,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.SECRET_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           event-type: checks-complete
           client-payload: '{"github": ${{ toJson(github) }}}'
         if: github.event_name == 'pull_request'
