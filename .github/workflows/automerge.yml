@@ -12,11 +12,8 @@ on:
 #       - reopened
 #       - unlocked
   pull_request_review:
-    types:
-      - submitted
-  check_suite:
-    types:
-      - completed
+    types: [submitted]
+
 jobs:
   auto-merge:
     name: Auto Merge The Created Pull Request
