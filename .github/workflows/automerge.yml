@@ -17,6 +17,7 @@ on:
 jobs:
   auto-merge:
     name: Auto Merge The Created Pull Request
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
