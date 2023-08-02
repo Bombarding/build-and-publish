@@ -23,7 +23,7 @@ jobs:
     with:
       work-dir: ./Docker
 
-  checks-complete:
+  repo-event:
     name: Set Repository Event
     permissions:
       contents: write
@@ -34,6 +34,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          event-type: checks-complete
+          event-type: ready-to-merge
           client-payload: '{"github": ${{ toJson(github) }}}'
         if: github.event_name == 'pull_request'
