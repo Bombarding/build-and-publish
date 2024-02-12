@@ -31,7 +31,7 @@ jobs:
     needs: [trivy-scan, compose-container]
     steps:
       - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           event-type: ready-to-merge
