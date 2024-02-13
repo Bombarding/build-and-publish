@@ -20,7 +20,7 @@ jobs:
       packages: write
     steps:
       - name: Build and Publish Container
-        uses: Bombarding/build-and-publish@v1.202402091426
+        uses: Bombarding/build-and-publish@v1.202402130414
         with:
           docker-name: local-container
           image-name: web-container
