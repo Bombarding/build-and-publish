@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.10-1184
+FROM registry.access.redhat.com/ubi9/ubi:9.7-1776834047
 
 USER root
 RUN echo 'root:root' | chpasswd
