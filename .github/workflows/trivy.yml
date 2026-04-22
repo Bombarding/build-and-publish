@@ -47,7 +47,7 @@ jobs:
         run: docker build -t ${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }} .
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.29.0
         with:
           image-ref: '${{ env.DOCKER_NAME }}:${{ steps.date.outputs.date }}'
           scan-type: 'image'
